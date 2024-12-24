@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+
+# Data from the description
+connections = [0, 20, 40, 60, 80, 100, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132]
+response_times = [9, 13, 17, 20, 38, 45, 94, 134, 156, 339, 525, 1071, 1299, 1339, 1407, 1519, 1569]
+timeout_rate = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 36, 48, 80, 94, 96, 100]
+timeout_threshold = 2000  # milliseconds
+
+# Plot the response times
+plt.figure(figsize=(10, 6))
+plt.plot(connections, timeout_rate, marker='o', label='Timeout Rate', color='blue')
+
+# Add the threshold line
+# plt.axhline(y=timeout_threshold, color='red', linestyle='--', label='Threshold (2000ms)')
+
+# Highlight the area above the threshold
+# plt.fill_between(connections, response_times, timeout_threshold, where=[rt > timeout_threshold for rt in response_times],
+#                  color='orange', alpha=0.3, label='Timeout Area')
+plt.fill_between(connections[-8:], timeout_rate[-8:], 0, color='orange', alpha=0.3)
+# Add arrow annotation for values exceeding 2000ms
+# plt.annotate('.', xy=(132, 2080), xytext=(130, 1550),
+#              arrowprops=dict(facecolor='black', arrowstyle='->'), fontsize=10)
+
+# Add labels and title
+plt.xlabel('Connections', fontsize=16)
+plt.ylabel('Timeout Rate', fontsize=16)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.title('Timeout Rate vs Concurrent Connections', fontsize=18)
+plt.legend(fontsize=18)
+
+# Add grid
+plt.grid(True, linestyle='--', alpha=0.6)
+
+# Show the plot
+plt.show()
